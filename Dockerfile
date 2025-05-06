@@ -18,6 +18,11 @@ RUN pnpm install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+# Install pnpm in this stage too
+RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh -
+ENV PATH="/root/.local/share/pnpm:$PATH"
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -28,7 +33,11 @@ RUN pnpm build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
+
+# Install pnpm in this stage too
+RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh -
+ENV PATH="/root/.local/share/pnpm:$PATH"
 
 # Create a non-root user to run the application
 RUN addgroup --system --gid 1001 nodejs
@@ -41,8 +50,16 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
+# Copy pnpm to user directory
+RUN mkdir -p /home/nextjs/.local/share/pnpm && \
+    cp -r /root/.local/share/pnpm/* /home/nextjs/.local/share/pnpm/ && \
+    chown -R nextjs:nodejs /home/nextjs/.local
+
 # Set correct permissions
 USER nextjs
+
+# Set PATH for nextjs user
+ENV PATH="/home/nextjs/.local/share/pnpm:$PATH"
 
 # Expose the port that the application will run on
 EXPOSE 3000
