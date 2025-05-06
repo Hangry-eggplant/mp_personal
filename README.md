@@ -1,3 +1,6 @@
+# mp_personal
+Personal page - Reactive resume fork of Amruth
+
 <img src="https://i.imgur.com/OtNqaaO.png" alt="Resume on the Web" width="400px" />
 
 ---
@@ -71,8 +74,8 @@ Since the project has been set up with NextJS, the build process has become easi
 2. Clone the repository and go into the working directory
 
 ```console
-git clone https://github.com/AmruthPillai/ResumeOnTheWeb.git
-cd ResumeOnTheWeb
+git clone https://github.com/Hangry-eggplant/mp_personal.git
+cd mp_personal
 ```
 
 3. Then, just run this command to install the necessary dependencies. It might take a while for it to finish, so keep an episode of 'Friends' running, just in case.
@@ -81,13 +84,13 @@ cd ResumeOnTheWeb
 pnpm install
 ```
 
-4. Watch the project come to life by firing up a server, brought to you by `gatsby-cli` which you installed in Step 1
+4. Watch the project come to life by firing up a server
 
 ```console
 pnpm dev
 ```
 
-5. If you want to build the application in production, just make use of `gatsby-cli` again
+5. If you want to build the application in production
 
 ```console
 pnpm build
