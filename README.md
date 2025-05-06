@@ -57,6 +57,10 @@ Next.js is an open-source web development framework built on top of Node.js enab
 
 A utility-first CSS framework for rapidly building custom designs. Tailwind CSS is a highly customizable, low-level CSS framework that gives you all of the building blocks you need to build bespoke designs
 
+### [Docker](https://www.docker.com/)
+
+Docker is a platform for developing, shipping, and running applications in containers. The containerization technology allows for packaging the application with all its dependencies into a standardized unit that can run consistently across different environments.
+
 ## Building from Source
 
 Since the project has been set up with NextJS, the build process has become easier than ever.
@@ -87,6 +91,53 @@ pnpm dev
 
 ```console
 pnpm build
+```
+
+---
+
+## Deploying with Coolify
+
+This project is configured for easy deployment with [Coolify](https://coolify.io/), a self-hostable Heroku/Vercel/Netlify alternative.
+
+### Prerequisites
+
+1. A running Coolify instance on your server
+2. Basic understanding of Docker and containerization
+
+### Deployment Steps
+
+1. In your Coolify dashboard, click on "Create Resource" → "Application"
+2. Choose "Git Repository" as the source
+3. Connect your Git provider and select this repository
+4. Configure the build settings:
+   - Build Pack: Docker
+   - Dockerfile Path: `./Dockerfile`
+   - Port: 3000
+5. Add the required environment variables from `.env.example`
+6. Click "Deploy" and wait for the build to complete
+
+Coolify will automatically detect the Dockerfile and build/deploy your application. Any changes pushed to your repository can trigger automatic redeployments based on your configuration.
+
+### Using Docker Locally
+
+You can also run the application using Docker locally:
+
+```console
+# Build the Docker image
+docker build -t personal-portfolio .
+
+# Run the container
+docker run -p 3000:3000 -e NODE_ENV=production personal-portfolio
+```
+
+Or using Docker Compose:
+
+```console
+# Start the application
+docker-compose up -d
+
+# Check logs
+docker-compose logs -f
 ```
 
 ---

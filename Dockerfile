@@ -22,7 +22,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build the Next.js application
-RUN yarn build
+RUN pnpm build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -48,4 +48,4 @@ USER nextjs
 EXPOSE 3000
 
 # Command to run the application
-CMD ["yarn", "start"]
+CMD ["pnpm", "start"]

@@ -1,0 +1,19 @@
+{
+  "name": "personal-portfolio",
+  "type": "application",
+  "buildpack": "dockerfile",
+  "dockerfile": "./Dockerfile",
+  "port": 3000,
+  "env": {
+    "NODE_ENV": "production",
+    "NEXT_TELEMETRY_DISABLED": "1"
+  },
+  "healthcheck": {
+    "path": "/",
+    "port": 3000
+  },
+  "autoDeployOnPush": true,
+  "deploymentStrategy": {
+    "type": "recreate"
+  }
+}
